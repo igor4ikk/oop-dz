@@ -5,6 +5,7 @@ class mainContainer{
         this.time = time;
         this.currentSeconds = time;
         this.startAuto = startAuto;
+        this.interval = null;
         this.render();
         this.checStartProgres();
     }
@@ -18,6 +19,7 @@ class mainContainer{
     }
 
     lifeInterval(){
+        if (this.interval !== null) return;
          this.interval = setInterval(() =>{
              const curentWidth = this.linedown.offsetWidth;
              const parsent = (this.width / 100);
@@ -27,8 +29,9 @@ class mainContainer{
             //прикріпляєм таймер зворотнього відліку до лінії
              this.linedown.style.width = `${ percent}%`;
               if (this.currentSeconds <= 0){
-                   this.progresStop();
-              }
+                   this.progresStop();    
+               }
+               
          }, 100)
      }   
 
@@ -46,6 +49,7 @@ class mainContainer{
 
     progresStop(){
        clearInterval(this.interval);
+       this.interval = null;
     }
 
     progresStart(){
@@ -91,3 +95,4 @@ class mainContainer{
 
  new mainContainer(10, false);
  new mainContainer(200, true);
+
